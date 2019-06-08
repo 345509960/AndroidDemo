@@ -30,7 +30,11 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-
+/**
+** 作者 梁永聪
+** 时间 2019/6/8
+ * 描述 自定义视频
+**/
 class MediaRecorderActivity : AppCompatActivity() {
 
 

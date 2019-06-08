@@ -28,7 +28,11 @@ import android.support.v4.view.ViewCompat.setRotation
 import android.hardware.Camera.CameraInfo
 import android.view.OrientationListener.ORIENTATION_UNKNOWN
 
-
+/**
+** 作者 梁永聪
+** 时间 2019/6/8
+ * 描述 自定义拍照界面
+**/
 class TakePictureActivity : AppCompatActivity() {
 
     public var mCurrentWhiteBalace=Camera.Parameters.WHITE_BALANCE_AUTO

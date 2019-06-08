@@ -21,8 +21,12 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.logging.SimpleFormatter
-
-class SystemTakeAPictureActivity : AppCompatActivity() {
+/**
+** 作者 梁永聪
+** 时间 2019/6/8
+ * 描述 分流拍小视频界面
+**/
+class CaputerActivity : AppCompatActivity() {
 
     val permissions = arrayOf(PermissionUtils.CAMERA, PermissionUtils.WRITE_EXTERNAL_STORAGE)
 

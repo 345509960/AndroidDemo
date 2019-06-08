@@ -13,6 +13,11 @@ import com.lyc.indonesia.mediademo.R
 import kotlinx.android.synthetic.main.activity_custom_take_picture.*
 import java.io.File
 
+/**
+** 作者 梁永聪
+** 时间 2019/6/8
+ * 描述 分流拍照界面
+**/
 class CustomTakePictureActivity : AppCompatActivity() {
 
 

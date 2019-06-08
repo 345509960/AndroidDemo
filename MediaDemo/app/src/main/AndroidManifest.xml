@@ -22,7 +22,7 @@
         </activity>
         <activity android:name=".photo.CustomTakePictureActivity">
         </activity>
-        <activity android:name=".photo.SystemTakeAPictureActivity">
+        <activity android:name=".photo.CaputerActivity">
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
