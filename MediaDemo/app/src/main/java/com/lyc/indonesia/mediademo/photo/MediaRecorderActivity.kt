@@ -129,37 +129,7 @@ class MediaRecorderActivity : AppCompatActivity() {
 
     }
 
-    private fun takePicture() {
 
-
-        mCamera?.takePicture(object : Camera.ShutterCallback {
-            override fun onShutter() {
-
-            }
-
-        }, object : Camera.PictureCallback {
-            override fun onPictureTaken(data: ByteArray?, camera: Camera?) {
-
-            }
-
-        }, object : Camera.PictureCallback {
-            override fun onPictureTaken(data: ByteArray?, camera: Camera?) {
-                val bitmap = BitmapFactory.decodeByteArray(data, 0, data?.size!!)
-                var filePath: String? = null
-                if (TextUtils.isEmpty(mPath)) {
-                    filePath = defaultFile().absolutePath
-                } else {
-                    filePath = createFile(mPath)
-                }
-                val path = FileUtils.saveBitmap2File(bitmap, filePath)
-                val intent = Intent()
-                intent.putExtra("data", path)
-                setResult(Activity.RESULT_OK, intent)
-                finish()
-            }
-
-        })
-    }
 
 
     private fun checkAndInitCamera() {
@@ -198,18 +168,23 @@ class MediaRecorderActivity : AppCompatActivity() {
         if (mMediaRecoder == null) {
             return false
         }
-        mMediaRecoder?.setCamera(mCamera)
+        //解锁资源，让MediaRecoder可用
         mCamera?.unlock()
-
-
+        //设置MediaRecoder绑定的Camera
+        mMediaRecoder?.setCamera(mCamera)
+        //设置声频来源于扬声器
         mMediaRecoder?.setAudioSource(MediaRecorder.AudioSource.CAMCORDER)
+        //设置图像来源于视频
         mMediaRecoder?.setVideoSource(MediaRecorder.VideoSource.CAMERA)
-
+        //设置图片协议配置
         mMediaRecoder?.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH))
+        //设置视频输出文件
         mMediaRecoder?.setOutputFile(mSaveFile)
+        //设置预览View对象
         mMediaRecoder?.setPreviewDisplay(surfaceView.holder.surface)
 
         try {
+            //开始预处理
             mMediaRecoder?.prepare()
         } catch (e: IllegalStateException) {
             Log.d(TAG, "IllegalStateException preparing MediaRecorder: " + e.message)
