@@ -17,10 +17,14 @@ class FrameAnimationJavaActivity : AppCompatActivity() {
         mAnimationDrawable=AnimationDrawable()
         var index=0
         while (index<25){
+            //根据字符串名称 固定defType获取到资源Id
             val id=resources.getIdentifier("img${index}","drawable",packageName)
             mAnimationDrawable.addFrame(resources.getDrawable(id),50)
             index++
         }
+        //设置仅仅播放一次
+        mAnimationDrawable.isOneShot=true
+        // 设置背景图
         if (Build.VERSION.SDK_INT<=Build.VERSION_CODES.JELLY_BEAN){
             iv_image.setBackgroundDrawable(mAnimationDrawable)
         }else{
