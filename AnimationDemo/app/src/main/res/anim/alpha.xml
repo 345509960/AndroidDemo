@@ -3,6 +3,8 @@
      android:shareInterpolator="true"
      android:duration="3000"
      android:fillAfter="true"
+     android:repeatMode="reverse"
+     android:repeatCount="infinite"
      android:interpolator="@android:anim/bounce_interpolator">
     <alpha android:fromAlpha="0.1"
            android:toAlpha="1"/>

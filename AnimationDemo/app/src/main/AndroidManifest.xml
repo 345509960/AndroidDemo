@@ -19,6 +19,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ViewJavaAnimationActivity"/>
+        <activity android:name=".FrameAnimationXmlActivity"/>
+        <activity android:name=".FrameAnimationJavaActivity">
+        </activity>
+
     </application>
 
 </manifest>

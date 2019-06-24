@@ -19,5 +19,13 @@ class MainActivity : AppCompatActivity() {
         btn_view_java.setOnClickListener {
             startActivity(Intent(this,ViewJavaAnimationActivity::class.java))
         }
+
+        btn_animation_frame_java.setOnClickListener {
+            startActivity(Intent(this,FrameAnimationJavaActivity::class.java))
+        }
+
+        btn_animation_frame_xml.setOnClickListener {
+            startActivity(Intent(this,FrameAnimationXmlActivity::class.java))
+        }
     }
 }

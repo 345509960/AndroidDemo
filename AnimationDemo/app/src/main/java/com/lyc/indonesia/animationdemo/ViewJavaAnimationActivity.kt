@@ -2,6 +2,7 @@ package com.lyc.indonesia.animationdemo
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.animation.*
 import kotlinx.android.synthetic.main.activity_view_animation.*
 
@@ -18,7 +19,7 @@ class ViewJavaAnimationActivity : AppCompatActivity() {
 
         mTranslateAnimation = TranslateAnimation(0f,500f,0f,500f)
         mTranslateAnimation.duration=3000
-        mTranslateAnimation.repeatCount=10
+        mTranslateAnimation.repeatCount=Animation.INFINITE
         mTranslateAnimation.repeatMode=Animation.REVERSE
         mTranslateAnimation.interpolator = AccelerateInterpolator()
 
@@ -31,7 +32,15 @@ class ViewJavaAnimationActivity : AppCompatActivity() {
 
 
         mUniAnimation = AnimationSet(true)
+        //动画间隔
         mUniAnimation.duration=3000
+        //插值d
+        mUniAnimation.interpolator=AccelerateInterpolator()
+        //重复模式
+        mUniAnimation.repeatMode=Animation.REVERSE
+        //重复次数
+        mUniAnimation.repeatCount=5
+        //添加组合动画
         mUniAnimation.addAnimation(mTranslateAnimation)
         mUniAnimation.addAnimation(mScaleAnimation)
         mUniAnimation.addAnimation(mRotateAnimation)
@@ -40,13 +49,18 @@ class ViewJavaAnimationActivity : AppCompatActivity() {
 
         mTranslateAnimation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationRepeat(animation: Animation?) {
+                // 当动画重复的时候触发
+                Log.d("test","onAnimationRepeat")
             }
 
             override fun onAnimationStart(animation: Animation?) {
+                // 当动画开始的时候触发
+                Log.d("test","onAnimationStart")
             }
 
             override fun onAnimationEnd(animation: Animation?) {
-                iv_image.startAnimation(mScaleAnimation)
+                // 当动画结束的时候触发
+                Log.d("test","onAnimationEnd")
             }
 
         })

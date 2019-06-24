@@ -19,6 +19,17 @@
             android:layout_height="wrap_content"
             android:text="View 动画 JAVA"/>
     <Button
+        android:id="@+id/btn_animation_frame_xml"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="逐帧动画-xml"/>
+
+    <Button
+            android:id="@+id/btn_animation_frame_java"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="逐帧动画_java"/>
+    <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="属性动画"/>
