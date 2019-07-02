@@ -27,5 +27,10 @@ class MainActivity : AppCompatActivity() {
         btn_animation_frame_xml.setOnClickListener {
             startActivity(Intent(this,FrameAnimationXmlActivity::class.java))
         }
+
+
+        btn_property_animtion.setOnClickListener {
+            startActivity(Intent(this,PropertyAnimationJavaActivity::class.java))
+        }
     }
 }

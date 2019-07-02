@@ -9,6 +9,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".PropertyAnimationJavaActivity">
+        </activity>
         <activity android:name=".ViewXmlAnimationActivity">
         </activity>
         <activity android:name=".MainActivity">
@@ -22,7 +24,6 @@
         <activity android:name=".FrameAnimationXmlActivity"/>
         <activity android:name=".FrameAnimationJavaActivity">
         </activity>
-
     </application>
 
 </manifest>
