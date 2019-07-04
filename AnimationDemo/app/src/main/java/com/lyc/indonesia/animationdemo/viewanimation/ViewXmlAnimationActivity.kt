@@ -1,9 +1,10 @@
-package com.lyc.indonesia.animationdemo
+package com.lyc.indonesia.animationdemo.viewanimation
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import com.lyc.indonesia.animationdemo.R
 import kotlinx.android.synthetic.main.activity_view_animation.*
 
 class ViewXmlAnimationActivity : AppCompatActivity() {

@@ -9,9 +9,19 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".basemotionanimtion.SimpleSpringActivity">
+        </activity>
+        <activity android:name=".basemotionanimtion.BaseMotionActivity">
+        </activity>
+        <activity android:name=".frameanimation.FrameAnimationActivity">
+        </activity>
+        <activity android:name=".viewanimation.ViewAnimationActivity">
+        </activity>
+        <activity android:name=".basemotionanimtion.SpringActivity">
+        </activity>
         <activity android:name=".PropertyAnimationJavaActivity">
         </activity>
-        <activity android:name=".ViewXmlAnimationActivity">
+        <activity android:name=".viewanimation.ViewXmlAnimationActivity">
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -20,9 +30,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ViewJavaAnimationActivity"/>
-        <activity android:name=".FrameAnimationXmlActivity"/>
-        <activity android:name=".FrameAnimationJavaActivity">
+        <activity android:name=".viewanimation.ViewJavaAnimationActivity"/>
+        <activity android:name=".frameanimation.FrameAnimationXmlActivity"/>
+        <activity android:name=".frameanimation.FrameAnimationJavaActivity">
         </activity>
     </application>
 

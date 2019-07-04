@@ -3,6 +3,9 @@ package com.lyc.indonesia.animationdemo
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.lyc.indonesia.animationdemo.frameanimation.FrameAnimationJavaActivity
+import com.lyc.indonesia.animationdemo.frameanimation.FrameAnimationXmlActivity
+import com.lyc.indonesia.animationdemo.viewanimation.ViewAnimationActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -13,19 +16,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         btn_view.setOnClickListener {
-            startActivity(Intent(this,ViewXmlAnimationActivity::class.java))
+            startActivity(Intent(this, ViewAnimationActivity::class.java))
         }
 
-        btn_view_java.setOnClickListener {
-            startActivity(Intent(this,ViewJavaAnimationActivity::class.java))
-        }
+
 
         btn_animation_frame_java.setOnClickListener {
-            startActivity(Intent(this,FrameAnimationJavaActivity::class.java))
+            startActivity(Intent(this, FrameAnimationJavaActivity::class.java))
         }
 
         btn_animation_frame_xml.setOnClickListener {
-            startActivity(Intent(this,FrameAnimationXmlActivity::class.java))
+            startActivity(Intent(this, FrameAnimationXmlActivity::class.java))
         }
 
 

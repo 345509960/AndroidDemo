@@ -1,8 +1,9 @@
-package com.lyc.indonesia.animationdemo
+package com.lyc.indonesia.animationdemo.frameanimation
 
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.lyc.indonesia.animationdemo.R
 import kotlinx.android.synthetic.main.activity_frame_animation_java.*
 
 class FrameAnimationXmlActivity : AppCompatActivity() {
