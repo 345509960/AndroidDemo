@@ -2,7 +2,8 @@ package com.lyc.indonesia.animationdemo
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import com.lyc.indonesia.animationdemo.basemotionanimtion.BaseMotionActivity
 import com.lyc.indonesia.animationdemo.frameanimation.FrameAnimationJavaActivity
 import com.lyc.indonesia.animationdemo.frameanimation.FrameAnimationXmlActivity
 import com.lyc.indonesia.animationdemo.viewanimation.ViewAnimationActivity
@@ -32,6 +33,10 @@ class MainActivity : AppCompatActivity() {
 
         btn_property_animtion.setOnClickListener {
             startActivity(Intent(this,PropertyAnimationJavaActivity::class.java))
+        }
+
+        btn_moton_base.setOnClickListener {
+            startActivity(Intent(this, BaseMotionActivity::class.java))
         }
     }
 }

@@ -1,8 +1,8 @@
 package com.lyc.indonesia.animationdemo.basemotionanimtion
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.lyc.indonesia.animationdemo.R
 import kotlinx.android.synthetic.main.activity_base_motion.*
 
