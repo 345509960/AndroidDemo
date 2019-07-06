@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.chipsea.greendaodemo.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/ll_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/bt_init_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="初始化数据"/>
+
+        <Button
+            android:id="@+id/bt_insert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="插入"/>
+        <Button
+            android:id="@+id/bt_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="更新"/>
+        <Button
+            android:id="@+id/bt_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="删除"/>
+
+        <Button
+            android:id="@+id/bt_query"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="查询"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/ll_top"/>
+
+</RelativeLayout>
