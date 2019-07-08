@@ -17,6 +17,9 @@ class SpringActivity : AppCompatActivity() {
         btn_stringText.setOnClickListener {
             startActivity(Intent(this,StringTextSpringActivity::class.java))
         }
+        btn_custom_spring_force.setOnClickListener {
+            startActivity(Intent(this,CustomSpringForceActivity::class.java))
+        }
 
     }
 }

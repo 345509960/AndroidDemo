@@ -11,11 +11,19 @@
                 android:id="@+id/btn_simple"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textAllCaps="false"
                 android:text="简单运用"/>
         <Button
                 android:id="@+id/btn_stringText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textAllCaps="false"
                 android:text="字符串分割词弹簧Demo"/>
 
+        <Button
+                android:id="@+id/btn_custom_spring_force"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="自定义SpringForce"/>
 </LinearLayout>

@@ -39,6 +39,7 @@
         <activity android:name=".frameanimation.FrameAnimationXmlActivity"/>
         <activity android:name=".frameanimation.FrameAnimationJavaActivity">
         </activity>
+        <activity android:name=".basemotionanimtion.CustomSpringForceActivity"/>
     </application>
 
 </manifest>

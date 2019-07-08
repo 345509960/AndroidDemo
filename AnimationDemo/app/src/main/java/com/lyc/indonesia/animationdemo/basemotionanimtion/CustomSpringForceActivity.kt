@@ -9,7 +9,7 @@ import androidx.dynamicanimation.animation.SpringForce
 import com.lyc.indonesia.animationdemo.R
 import kotlinx.android.synthetic.main.activity_simple_text.*
 
-class SimpleTextActivity : AppCompatActivity() {
+class CustomSpringForceActivity : AppCompatActivity() {
     private var mSpringAnimation:SpringAnimation?=null
     private var mUpdateListener:DynamicAnimation.OnAnimationUpdateListener?=null
     private var mEndListener:DynamicAnimation.OnAnimationEndListener?=null
@@ -19,31 +19,32 @@ class SimpleTextActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_simple_text)
         // 创建SpringAnimation对象
-        mSpringAnimation= SpringAnimation(tv_text,DynamicAnimation.TRANSLATION_Y,0f)
-
+        mSpringAnimation= SpringAnimation(tv_text,DynamicAnimation.TRANSLATION_Y,100f)
+        mSpringAnimation?.setMinValue(100f)
+        mSpringAnimation?.setMaxValue(700f)
         // 设置开始值
         mSpringAnimation?.setStartValue(700f)
-
-        //设置最大最小值
-//        mSpringAnimation?.setMinValue(0f)
-//        mSpringAnimation?.setMaxValue(700f)
 
         // 设置动画的速度
         val pixelPerSecond = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP, 10f,
-        getResources().getDisplayMetrics())
+        resources.displayMetrics
+        )
         mSpringAnimation?.setStartVelocity(pixelPerSecond)
 
-        // 设置阻尼比
-        mSpringAnimation?.spring?.dampingRatio=SpringForce.DAMPING_RATIO_HIGH_BOUNCY
+        val springForce=SpringForce()
 
+        // 设置阻尼比
+        springForce.dampingRatio=SpringForce.DAMPING_RATIO_HIGH_BOUNCY
         // 设置刚度
-        mSpringAnimation?.spring?.stiffness=SpringForce.STIFFNESS_MEDIUM
+        springForce.stiffness=SpringForce.STIFFNESS_MEDIUM
+        //设置自定义的SpringForce对象
+        mSpringAnimation?.spring=springForce
+
 
         btn_start.setOnClickListener {
             //开启动画
             mSpringAnimation?.cancel()
-            mSpringAnimation?.setStartValue(700f)
             mSpringAnimation?.start()
         }
         //创建动画更新监听
