@@ -18,5 +18,9 @@ class BaseMotionActivity : AppCompatActivity() {
             startActivity(Intent(this,SpringActivity::class.java))
         }
 
+        btn_fling.setOnClickListener {
+            startActivity(Intent(this,FlingAnimationActivity::class.java))
+        }
+
     }
 }

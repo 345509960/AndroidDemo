@@ -12,6 +12,8 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:replace="android:appComponentFactory">
+        <activity android:name=".basemotionanimtion.FlingAnimationActivity">
+        </activity>
         <activity android:name=".basemotionanimtion.SimpleTextActivity">
         </activity>
         <activity android:name=".basemotionanimtion.StringTextSpringActivity">

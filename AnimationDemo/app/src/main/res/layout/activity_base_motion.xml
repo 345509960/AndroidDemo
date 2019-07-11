@@ -12,6 +12,14 @@
             android:id="@+id/btn_spring"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAllCaps="false"
             android:text="Spring动画"/>
+
+    <Button
+            android:id="@+id/btn_fling"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="Fling动画"/>
 
 </LinearLayout>
