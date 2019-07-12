@@ -22,6 +22,7 @@ class FlingAnimationActivity : AppCompatActivity() {
         }
 
         override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
+            // 判断速度的绝对取，取比较大的方向进行移动
             if (Math.abs(velocityX) > Math.abs(velocityY)) {
                 FlingAnimation(iv_view, DynamicAnimation.TRANSLATION_X).apply {
                     setStartVelocity(velocityX)
