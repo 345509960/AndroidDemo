@@ -5,8 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity" android:orientation="vertical">
 
     <Button
             android:id="@+id/btn_view"
@@ -15,10 +14,10 @@
             android:text="View 动画"/>
 
     <Button
-        android:id="@+id/btn_animation_frame_xml"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="逐帧动画-xml"/>
+            android:id="@+id/btn_animation_frame_xml"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="逐帧动画-xml"/>
 
     <Button
             android:id="@+id/btn_animation_frame_java"
@@ -36,6 +35,11 @@
             android:layout_height="wrap_content"
             android:textAllCaps="false"
             android:text="Physics-based motion"/>
+    <Button
+            android:id="@+id/bt_show_hide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="显示隐藏动画"/>
     <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">AnimationDemo</string>
+    <string name="title_activity_show_or_hide_demo">ShowOrHideDemoActivity</string>
+    <string name="title_activity_crossfade">CrossfadeActivity</string>
+    <string name="test_content">显示内容阿时间的巴斯夫阿斌师傅看见阿森纳发送浪费那是浪费阿双方纳斯卡贾夫纳市就看你发开始减肥
+        散发少女非看见阿森纳分卡萨诺看风景啊霰你非看见阿森纳分就卡萨诺发开始就能发送即可非拿手机看烦恼阿是看见你饭卡结束你饭卡孙法看法上课非拿
+        上看见烦恼阿是看见你发啥开发散发那是看见烦恼ask非纳斯卡贾夫纳市看见非拿手机看非拿手机看非拿发开始就不发啥办法交罚款减肥吧是
+        看见阿是看见饭阿啥办法把咖啡杯阿双方阿时间可否把健康放吧是咖啡吧放吧是看见不发就不发看见阿斌发送健康放吧是看见饭吧是看见饭吧发
+        阿啥办法看见发送看见饭阿是看见饭吧是看见饭吧咖啡吧看见饭吧咖啡吧看见不发啥看见本菲卡啥办法阿双方
+    </string>
+    <string name="description_image_1">滚动图片</string>
+
+    <array name="list">
+        <item>全部</item>
+        <item>转账</item>
+        <item>收款</item>
+    </array>
 </resources>

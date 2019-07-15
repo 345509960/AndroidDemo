@@ -12,6 +12,20 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:replace="android:appComponentFactory">
+        <activity android:name=".showorhide.CardFlipActivity">
+        </activity>
+        <activity android:name=".showorhide.CircleRevealActivity">
+        </activity>
+        <activity
+                android:name=".showorhide.CrossfadeActivity"
+                android:label="@string/title_activity_crossfade"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".showorhide.ShowOrHideDemoActivity"
+                android:label="@string/title_activity_show_or_hide_demo"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity android:name=".basemotionanimtion.FlingAnimationActivity">
         </activity>
         <activity android:name=".basemotionanimtion.SimpleTextActivity">
