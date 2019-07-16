@@ -15,10 +15,17 @@
             android:text="原生WhatsApp分享图片"
             android:textAllCaps="false"/>
     <Button
-            android:id="@+id/btn_share"
+        android:id="@+id/btn_share"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="分享文本"
+        android:textAllCaps="false"/>
+
+    <Button
+            android:id="@+id/btn_customize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="分享文本"
+            android:text="自定义分享文本"
             android:textAllCaps="false"/>
 
 </LinearLayout>

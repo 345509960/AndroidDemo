@@ -40,6 +40,49 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        btn_customize.setOnClickListener {
+            customizeShare()
+        }
+
+
+    }
+
+    private fun customizeShare() {
+        val url="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562836968829&di=69592f694c1609a1780266befb7fed1e&imgtype=0&src=http%3A%2F%2Fpic.k73.com%2Fup%2Fsoft%2F2016%2F0102%2F092635_44907394.jpg"
+        val FileLoad = "cxstatus/"
+        val savePath=Environment.getExternalStorageDirectory().absolutePath + File.separator+FileLoad+"tempimg.jpg"
+        FileDownloader.getImpl().create(url)
+            .setPath(savePath)
+            .setForceReDownload(true)
+            .setListener(object : FileDownloadListener() {
+                override fun warn(task: BaseDownloadTask?) {
+
+                }
+
+                override fun completed(task: BaseDownloadTask?) {
+                    Log.d("test",""+savePath)
+                    ShareUtils(this@MainActivity).showCustomizeShare("运营活动",
+                        "我想要分享一些东西",
+                        "我想要分享一些东西。","https://www.hao123.com/?1562762562",FileProvider7.getUriForFile(this@MainActivity,
+                        File(savePath)))
+                }
+
+                override fun pending(task: BaseDownloadTask?, soFarBytes: Int, totalBytes: Int) {
+                }
+
+                override fun error(task: BaseDownloadTask?, e: Throwable?) {
+                    Log.d("test",""+e?.message)
+                }
+
+                override fun progress(task: BaseDownloadTask?, soFarBytes: Int, totalBytes: Int) {
+                    Log.d("test",""+soFarBytes.toString())
+                }
+
+                override fun paused(task: BaseDownloadTask?, soFarBytes: Int, totalBytes: Int) {
+
+                }
+
+            }).start()
     }
 
     private fun share() {
@@ -58,7 +101,7 @@ class MainActivity : AppCompatActivity() {
 
                 override fun completed(task: BaseDownloadTask?) {
                    Log.d("test",""+savePath)
-                   ShareUtils(this@MainActivity).shareMsg("Share Demo","运营活动","我想要分享一些东西。https://www.hao123.com/?1562762562",savePath)
+                   ShareUtils(this@MainActivity).shareFb("Share Demo","运营活动","我想要分享一些东西。https://www.hao123.com/?1562762562",savePath)
                 }
 
                 override fun pending(task: BaseDownloadTask?, soFarBytes: Int, totalBytes: Int) {

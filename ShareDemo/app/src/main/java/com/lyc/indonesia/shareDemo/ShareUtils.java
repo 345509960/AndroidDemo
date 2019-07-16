@@ -1,23 +1,27 @@
 package com.lyc.indonesia.shareDemo;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Parcelable;
-import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ShareUtils {
 
@@ -29,6 +33,8 @@ public class ShareUtils {
 
     public static final String WEIXIN_PACKAGE_NAME = "";
     public static final String QQ_PACKAGE_NAME = "";
+
+    private static final String WHATSAPP_PACKGE="com.whatsapp";
 
 
     /**
@@ -179,21 +185,6 @@ public class ShareUtils {
 
     }
 
-    /**
-     * 是否安装分享app
-     *
-     * @param packageName
-     */
-    public boolean checkInstall(String packageName) {
-        try {
-            context.getPackageManager().getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            Toast.makeText(context, "请先安装应用app", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-    }
 
 
     private static boolean stringCheck(String str) {
@@ -204,7 +195,7 @@ public class ShareUtils {
 
 
     /**
-     * 分享功能
+     * 分享Feedbook相关功能
      *
 
      * @param activityTitle
@@ -216,8 +207,8 @@ public class ShareUtils {
      * @param imgPath
      *            图片路径，不分享图片则传null
      */
-    public void shareMsg(String activityTitle, String msgTitle, String msgText,
-                         String imgPath) {
+    public void shareFb(String activityTitle, String msgTitle, String msgText,
+                        String imgPath) {
         Intent intent = new Intent(Intent.ACTION_SEND);
 //        intent.setPackage("com.whatsapp");
         if (imgPath == null || "".equals(imgPath)) {
@@ -235,6 +226,76 @@ public class ShareUtils {
         intent.putExtra(Intent.EXTRA_TEXT, msgText);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(Intent.createChooser(intent, activityTitle));
+    }
+
+
+    public void showCustomizeShare(final String title,final String shareText, final String shareSubject, final String shareLink, final Uri imgUri){
+        final BottomSheetDialog sheetDialog = new BottomSheetDialog(context);
+        RecyclerView recyclerView = new RecyclerView(context);
+        recyclerView.setLayoutManager(new GridLayoutManager(context,4));
+        final List<ResolveInfo> arrayList = getShareActivities(context);
+        printlnShareList(arrayList) ;
+        ShareAdapter bottomProductsAdapter = new ShareAdapter(context, arrayList);
+        recyclerView.setAdapter(bottomProductsAdapter);
+        bottomProductsAdapter.setmOnClickListener(new ShareAdapter.OnClickListener() {
+            @Override
+            public void onClick(int position) {
+                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                ResolveInfo info = arrayList.get(position);
+                if (info != null) {
+                    intent.setClassName(info.activityInfo.packageName, info.activityInfo.name);
+                    intent.setType("text/plain");
+                    if (info.activityInfo.packageName.startsWith(WHATSAPP_PACKGE)){
+
+                        if (imgUri != null) {
+                            intent.setType("image/*");
+                            intent.putExtra(Intent.EXTRA_STREAM, imgUri);
+                        }
+
+                    }
+                    intent.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
+                    intent.putExtra(Intent.EXTRA_TEXT, shareText + "#" + shareLink);
+                    context.startActivity(intent);
+
+                }
+                sheetDialog.dismiss();
+            }
+        });
+
+        sheetDialog.setContentView(recyclerView);
+        View view1 = sheetDialog.getDelegate().findViewById(android.support.design.R.id.design_bottom_sheet);
+        final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(view1);
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    sheetDialog.dismiss();
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+        sheetDialog.show();
+    }
+
+    private static void printlnShareList(List<ResolveInfo> shareList){
+       if (shareList==null){
+           return;
+       }
+       for (ResolveInfo info:shareList){
+           Log.d("test", info.activityInfo.packageName);
+       }
+    }
+
+    private static List<ResolveInfo> getShareActivities(Context context) {
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        PackageManager pm = context.getPackageManager();
+        return pm.queryIntentActivities(sharingIntent, 0);
     }
 
 }
