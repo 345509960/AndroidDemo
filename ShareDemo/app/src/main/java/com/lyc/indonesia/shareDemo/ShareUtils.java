@@ -4,17 +4,26 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ShareUtil {
+public class ShareUtils {
 
     private Context context;
 
-    public ShareUtil(Context context) {
+    public ShareUtils(Context context) {
         this.context = context;
     }
 
@@ -50,7 +59,7 @@ public class ShareUtil {
             intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         }
         intent.putExtra(Intent.EXTRA_TITLE, title);
-        Intent chooserIntent = Intent.createChooser(intent, "分享到：");
+        Intent chooserIntent = Intent.createChooser(intent, "Share：");
         context.startActivity(chooserIntent);
     }
 
@@ -70,7 +79,7 @@ public class ShareUtil {
             intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         }
         intent.putExtra(Intent.EXTRA_TITLE, title);
-        Intent chooserIntent = Intent.createChooser(intent, "分享到：");
+        Intent chooserIntent = Intent.createChooser(intent, "Share：");
         context.startActivity(chooserIntent);
     }
 
@@ -186,22 +195,46 @@ public class ShareUtil {
         }
     }
 
-    /**
-     * 跳转官方安装网址
-     */
-    public void toInstallWebView(String url) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(url));
-        context.startActivity(intent);
+
+    private static boolean stringCheck(String str) {
+        return null != str && !TextUtils.isEmpty(str);
     }
 
-    public static boolean stringCheck(String str) {
-        if (null != str && !TextUtils.isEmpty(str)) {
-            return true;
+
+
+
+    /**
+     * 分享功能
+     *
+
+     * @param activityTitle
+     *            Activity的名字
+     * @param msgTitle
+     *            消息标题
+     * @param msgText
+     *            消息内容
+     * @param imgPath
+     *            图片路径，不分享图片则传null
+     */
+    public void shareMsg(String activityTitle, String msgTitle, String msgText,
+                         String imgPath) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+//        intent.setPackage("com.whatsapp");
+        if (imgPath == null || "".equals(imgPath)) {
+            // 纯文本
+            intent.setType("text/plain");
         } else {
-            return false;
+            File f = new File(imgPath);
+            if (f.exists() && f.isFile()) {
+                intent.setType("image/jpg");
+                Uri u =FileProvider7.getUriForFile(context,f);
+                intent.putExtra(Intent.EXTRA_STREAM, u);
+            }
         }
+        intent.putExtra(Intent.EXTRA_SUBJECT, msgTitle);
+        intent.putExtra(Intent.EXTRA_TEXT, msgText);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(Intent.createChooser(intent, activityTitle));
     }
 
 }
