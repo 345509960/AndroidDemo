@@ -12,6 +12,14 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:replace="android:appComponentFactory">
+        <activity android:name=".moveanimation.CustomizePathActivity">
+        </activity>
+        <activity android:name=".moveanimation.CurvedMotionActivity">
+        </activity>
+        <activity android:name=".moveanimation.LineTranslateAnimationActivity">
+        </activity>
+        <activity android:name=".moveanimation.MoveAnimationActivity">
+        </activity>
         <activity android:name=".showorhide.CardFlipActivity">
         </activity>
         <activity android:name=".showorhide.CircleRevealActivity">

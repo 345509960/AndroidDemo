@@ -41,6 +41,11 @@
             android:layout_height="wrap_content"
             android:text="显示隐藏动画"/>
     <Button
+            android:id="@+id/bt_translation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="移动动画"/>
+    <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="布局动画"/>

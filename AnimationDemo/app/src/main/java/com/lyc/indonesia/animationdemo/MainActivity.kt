@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.lyc.indonesia.animationdemo.basemotionanimtion.BaseMotionActivity
 import com.lyc.indonesia.animationdemo.frameanimation.FrameAnimationJavaActivity
 import com.lyc.indonesia.animationdemo.frameanimation.FrameAnimationXmlActivity
+import com.lyc.indonesia.animationdemo.moveanimation.MoveAnimationActivity
 import com.lyc.indonesia.animationdemo.showorhide.ShowOrHideDemoActivity
 import com.lyc.indonesia.animationdemo.viewanimation.ViewAnimationActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -42,6 +43,10 @@ class MainActivity : AppCompatActivity() {
 
         bt_show_hide.setOnClickListener {
             startActivity(Intent(this, ShowOrHideDemoActivity::class.java))
+        }
+
+        bt_translation.setOnClickListener {
+            startActivity(Intent(this, MoveAnimationActivity::class.java))
         }
     }
 }
