@@ -12,6 +12,8 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:replace="android:appComponentFactory">
+        <activity android:name=".zoomanimation.ZoomImageViewActivity">
+        </activity>
         <activity android:name=".moveanimation.CustomizePathActivity">
         </activity>
         <activity android:name=".moveanimation.CurvedMotionActivity">

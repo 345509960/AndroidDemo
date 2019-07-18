@@ -9,6 +9,7 @@ import com.lyc.indonesia.animationdemo.frameanimation.FrameAnimationXmlActivity
 import com.lyc.indonesia.animationdemo.moveanimation.MoveAnimationActivity
 import com.lyc.indonesia.animationdemo.showorhide.ShowOrHideDemoActivity
 import com.lyc.indonesia.animationdemo.viewanimation.ViewAnimationActivity
+import com.lyc.indonesia.animationdemo.zoomanimation.ZoomImageViewActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -47,6 +48,10 @@ class MainActivity : AppCompatActivity() {
 
         bt_translation.setOnClickListener {
             startActivity(Intent(this, MoveAnimationActivity::class.java))
+        }
+
+        btn_zoom_view.setOnClickListener {
+            startActivity(Intent(this, ZoomImageViewActivity::class.java))
         }
     }
 }

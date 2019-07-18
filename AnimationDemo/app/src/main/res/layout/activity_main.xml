@@ -46,6 +46,11 @@
             android:layout_height="wrap_content"
             android:text="移动动画"/>
     <Button
+            android:id="@+id/btn_zoom_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="缩放动画"/>
+    <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="布局动画"/>
