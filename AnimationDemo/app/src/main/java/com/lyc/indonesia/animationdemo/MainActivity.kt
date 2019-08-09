@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.lyc.indonesia.animationdemo.basemotionanimtion.BaseMotionActivity
 import com.lyc.indonesia.animationdemo.frameanimation.FrameAnimationJavaActivity
 import com.lyc.indonesia.animationdemo.frameanimation.FrameAnimationXmlActivity
+import com.lyc.indonesia.animationdemo.layoutanimation.LayoutAnimationActivity
 import com.lyc.indonesia.animationdemo.moveanimation.MoveAnimationActivity
 import com.lyc.indonesia.animationdemo.showorhide.ShowOrHideDemoActivity
 import com.lyc.indonesia.animationdemo.viewanimation.ViewAnimationActivity
@@ -52,6 +53,10 @@ class MainActivity : AppCompatActivity() {
 
         btn_zoom_view.setOnClickListener {
             startActivity(Intent(this, ZoomImageViewActivity::class.java))
+        }
+
+        btn_layout_animation.setOnClickListener {
+            startActivity(Intent(this, LayoutAnimationActivity::class.java))
         }
     }
 }
