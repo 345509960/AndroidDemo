@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "com.lyc.indonesia.shareDemo"
         minSdkVersion 15
-        targetSdkVersion 28
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -32,5 +32,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     api 'com.liulishuo.filedownloader:library:1.7.4'
+    api 'com.facebook.android:facebook-share:4.42.0'
+
 
 }

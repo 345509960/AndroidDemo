@@ -6,7 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
@@ -15,14 +17,22 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
+import com.facebook.share.model.ShareContent;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.model.ShareMediaContent;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.widget.ShareDialog;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
+/**
+ * * 作者 梁永聪
+ * * 时间 2019/7/16
+ * 描述 分享工具类
+ **/
 public class ShareUtils {
 
     private Context context;
@@ -31,10 +41,9 @@ public class ShareUtils {
         this.context = context;
     }
 
-    public static final String WEIXIN_PACKAGE_NAME = "";
-    public static final String QQ_PACKAGE_NAME = "";
 
-    private static final String WHATSAPP_PACKGE="com.whatsapp";
+    private static final String WHATSAPP_PACKGE = "com.whatsapp";
+    private static final String FACEBOOK_PACKGE = "com.facebook";
 
 
     /**
@@ -111,34 +120,6 @@ public class ShareUtils {
         }
     }
 
-    /**
-     * 分享音乐
-     */
-    public void shareAudio(String packageName, String className, File file) {
-        if (file.exists()) {
-            Uri uri = Uri.fromFile(file);
-            Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_SEND);
-            intent.setType("audio/*");
-            if (stringCheck(packageName) && stringCheck(className)) {
-                intent.setComponent(new ComponentName(packageName, className));
-            } else if (stringCheck(packageName)) {
-                intent.setPackage(packageName);
-            }
-            intent.putExtra(Intent.EXTRA_STREAM, uri);
-            Intent chooserIntent = Intent.createChooser(intent, "分享到:");
-            context.startActivity(chooserIntent);
-        } else {
-            Toast.makeText(context, "文件不存在", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    /**
-     * 分享视频
-     */
-    public void shareVideo(String packageName, String className, File file) {
-        setIntent("video/*", packageName, className, file);
-    }
 
     public void setIntent(String type, String packageName, String className, File file) {
         if (file.exists()) {
@@ -159,58 +140,24 @@ public class ShareUtils {
         }
     }
 
-    /**
-     * 分享多张图片和文字至朋友圈
-     *
-     * @param title
-     * @param packageName
-     * @param className
-     * @param file        图片文件
-     */
-    public void shareImgToWXCircle(String title, String packageName, String className, File file) {
-        if (file.exists()) {
-            Uri uri = Uri.fromFile(file);
-            Intent intent = new Intent();
-            ComponentName comp = new ComponentName(packageName, className);
-            intent.setComponent(comp);
-            intent.setAction(Intent.ACTION_SEND);
-            intent.setType("image/*");
-            intent.putExtra(Intent.EXTRA_STREAM, uri);
-            intent.putExtra("Kdescription", title);
-            context.startActivity(intent);
-        } else {
-            Toast.makeText(context, "文件不存在", Toast.LENGTH_LONG).show();
-        }
-
-
-    }
-
-
 
     private static boolean stringCheck(String str) {
         return null != str && !TextUtils.isEmpty(str);
     }
 
 
-
-
     /**
      * 分享Feedbook相关功能
      *
-
-     * @param activityTitle
-     *            Activity的名字
-     * @param msgTitle
-     *            消息标题
-     * @param msgText
-     *            消息内容
-     * @param imgPath
-     *            图片路径，不分享图片则传null
+     * @param activityTitle Activity的名字
+     * @param msgTitle      消息标题
+     * @param msgText       消息内容
+     * @param imgPath       图片路径，不分享图片则传null
      */
     public void shareFb(String activityTitle, String msgTitle, String msgText,
                         String imgPath) {
         Intent intent = new Intent(Intent.ACTION_SEND);
-//        intent.setPackage("com.whatsapp");
+        intent.setPackage("com.whatsapp");
         if (imgPath == null || "".equals(imgPath)) {
             // 纯文本
             intent.setType("text/plain");
@@ -218,7 +165,7 @@ public class ShareUtils {
             File f = new File(imgPath);
             if (f.exists() && f.isFile()) {
                 intent.setType("image/jpg");
-                Uri u =FileProvider7.getUriForFile(context,f);
+                Uri u = FileProvider7.getUriForFile(context, f);
                 intent.putExtra(Intent.EXTRA_STREAM, u);
             }
         }
@@ -228,13 +175,19 @@ public class ShareUtils {
         context.startActivity(Intent.createChooser(intent, activityTitle));
     }
 
-
-    public void showCustomizeShare(final String title,final String shareText, final String shareSubject, final String shareLink, final Uri imgUri){
+    /**
+     * 自定义分享界面
+     *
+     * @param title     标题栏
+     * @param shareText 分享内容
+     * @param imgUri    分享的本地图片路径
+     */
+    public void showCustomizeShare(final String title, final String shareText, final Uri imgUri) {
         final BottomSheetDialog sheetDialog = new BottomSheetDialog(context);
         RecyclerView recyclerView = new RecyclerView(context);
-        recyclerView.setLayoutManager(new GridLayoutManager(context,4));
+        recyclerView.setLayoutManager(new GridLayoutManager(context, 4));
         final List<ResolveInfo> arrayList = getShareActivities(context);
-        printlnShareList(arrayList) ;
+        printlnShareList(arrayList);
         ShareAdapter bottomProductsAdapter = new ShareAdapter(context, arrayList);
         recyclerView.setAdapter(bottomProductsAdapter);
         bottomProductsAdapter.setmOnClickListener(new ShareAdapter.OnClickListener() {
@@ -245,7 +198,7 @@ public class ShareUtils {
                 if (info != null) {
                     intent.setClassName(info.activityInfo.packageName, info.activityInfo.name);
                     intent.setType("text/plain");
-                    if (info.activityInfo.packageName.startsWith(WHATSAPP_PACKGE)){
+                    if (info.activityInfo.packageName.startsWith(WHATSAPP_PACKGE)) {
 
                         if (imgUri != null) {
                             intent.setType("image/*");
@@ -253,8 +206,8 @@ public class ShareUtils {
                         }
 
                     }
-                    intent.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
-                    intent.putExtra(Intent.EXTRA_TEXT, shareText + "#" + shareLink);
+                    intent.putExtra(Intent.EXTRA_TITLE, title);
+                    intent.putExtra(Intent.EXTRA_TEXT, shareText);
                     context.startActivity(intent);
 
                 }
@@ -282,16 +235,70 @@ public class ShareUtils {
         sheetDialog.show();
     }
 
-    private static void printlnShareList(List<ResolveInfo> shareList){
-       if (shareList==null){
-           return;
-       }
-       for (ResolveInfo info:shareList){
-           Log.d("test", info.activityInfo.packageName);
-       }
+    public void showFaceBook(){
+        ShareDialog shareDialog;
+        shareDialog = new ShareDialog((Activity) context);
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+
+            SharePhoto sharePhoto = new SharePhoto.Builder()
+                    .setBitmap(BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher))
+                    .build();
+            ShareContent shareContent = new ShareMediaContent.Builder()
+                    .addMedium(sharePhoto)
+                    .setContentUrl(Uri.parse("http://agent.fonecyc.com/user/index/shareGoods?id=250"))
+                    .build();
+
+            shareDialog.show(shareContent);
+
+        }
     }
 
-    private static List<ResolveInfo> getShareActivities(Context context) {
+    /**
+     * 自定义分享行为
+     * @param title  分享Dialog的标题
+     * @param shareText 分享内容
+     * @param imgUri 分享的图片
+     */
+    public void showCustomize(final String title, final String shareText, final Uri imgUri) {
+        final List<ResolveInfo> arrayList = getShareActivities(context);
+        List<Intent> targetIntents = new ArrayList<>();
+        for (ResolveInfo info : arrayList) {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setClassName(info.activityInfo.packageName, info.activityInfo.name);
+            intent.setType("text/plain");
+            String packgeName = info.activityInfo.packageName;
+            if (packgeName.startsWith(WHATSAPP_PACKGE)) {
+                if (imgUri != null) {
+                    intent.setType("image/*");
+                    intent.putExtra(Intent.EXTRA_STREAM, imgUri);
+                }
+            }
+            intent.putExtra(Intent.EXTRA_TITLE, shareText);
+            intent.putExtra(Intent.EXTRA_TEXT, shareText);
+            targetIntents.add(intent);
+
+        }
+
+        Intent chooser = Intent.createChooser(targetIntents.remove(0), title);
+        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetIntents.toArray(new Parcelable[]{}));
+        context.startActivity(chooser);
+    }
+
+    private void printlnShareList(List<ResolveInfo> shareList) {
+        if (shareList == null) {
+            return;
+        }
+        for (ResolveInfo info : shareList) {
+            Log.d("test", info.activityInfo.packageName);
+        }
+    }
+
+    /**
+     * 查询已安装的可分享列表
+     * @param context 上下文
+     * @return
+     */
+    private List<ResolveInfo> getShareActivities(Context context) {
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
         PackageManager pm = context.getPackageManager();
