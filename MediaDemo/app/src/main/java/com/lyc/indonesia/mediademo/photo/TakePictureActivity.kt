@@ -1,11 +1,12 @@
-
 package com.lyc.indonesia.mediademo.photo
 
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.hardware.Camera
 import android.os.Build
 import android.os.Bundle
@@ -29,13 +30,13 @@ import android.hardware.Camera.CameraInfo
 import android.view.OrientationListener.ORIENTATION_UNKNOWN
 
 /**
-** 作者 梁永聪
-** 时间 2019/6/8
+ ** 作者 梁永聪
+ ** 时间 2019/6/8
  * 描述 自定义拍照界面
-**/
+ **/
 class TakePictureActivity : AppCompatActivity() {
 
-    public var mCurrentWhiteBalace=Camera.Parameters.WHITE_BALANCE_AUTO
+    public var mCurrentWhiteBalace = Camera.Parameters.WHITE_BALANCE_AUTO
 
 
     //需要申请的权限
@@ -49,25 +50,25 @@ class TakePictureActivity : AppCompatActivity() {
 
     private val TAG = this.javaClass.simpleName
 
-    var mCamera: Camera?=null
+    var mCamera: Camera? = null
 
 
-    private val defaultFile={
-        val formatTime=SimpleDateFormat("yyyy_MM_dd_hh_mm_ss")
-        val fileRoot=getExternalFilesDir(DIRECTORY_PICTURES)
-        File(fileRoot,formatTime.format(Date())+".jpg")
+    private val defaultFile = {
+        val formatTime = SimpleDateFormat("yyyy_MM_dd_hh_mm_ss")
+        val fileRoot = getExternalFilesDir(DIRECTORY_PICTURES)
+        File(fileRoot, formatTime.format(Date()) + ".jpg")
     }
 
-    fun  createFile(root:String?):String{
-        val rootFile=File(root)
-        if (!rootFile.exists()){
+    fun createFile(root: String?): String {
+        val rootFile = File(root)
+        if (!rootFile.exists()) {
             rootFile.mkdirs()
         }
-        val formatTime=SimpleDateFormat("yyyy_MM_dd_hh_mm_ss")
-        return File(root,formatTime.format(Date())+".jpg").absolutePath
+        val formatTime = SimpleDateFormat("yyyy_MM_dd_hh_mm_ss")
+        return File(root, formatTime.format(Date()) + ".jpg").absolutePath
     }
 
-    private var mPath:String?=null
+    private var mPath: String? = null
 
     private var mCallBack: SurfaceHolder.Callback? = null
 
@@ -85,7 +86,7 @@ class TakePictureActivity : AppCompatActivity() {
     }
 
     private fun releaseCameraAndPreview() {
-        mCamera=null
+        mCamera = null
         mCamera?.also { camera ->
             camera.release()
             mCamera = null
@@ -96,12 +97,15 @@ class TakePictureActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // 清除标题栏全屏
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
 
 
         setContentView(R.layout.activity_take_picture)
 
-        mPath=intent?.getStringExtra("path")
+        mPath = intent?.getStringExtra("path")
 
         checkAndInitCamera()
 
@@ -110,47 +114,52 @@ class TakePictureActivity : AppCompatActivity() {
         }
 
 
-        sp_white_balance.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                when(position){
-                    0->{
-                        if (mCamera?.parameters?.supportedWhiteBalance?.contains(Camera.Parameters.WHITE_BALANCE_AUTO)==true){
-                            mCurrentWhiteBalace=Camera.Parameters.WHITE_BALANCE_AUTO
+        sp_white_balance.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                when (position) {
+                    0 -> {
+                        if (mCamera?.parameters?.supportedWhiteBalance?.contains(Camera.Parameters.WHITE_BALANCE_AUTO) == true) {
+                            mCurrentWhiteBalace = Camera.Parameters.WHITE_BALANCE_AUTO
                         }
                     }
-                    1->{
-                        if (mCamera?.parameters?.supportedWhiteBalance?.contains(Camera.Parameters.WHITE_BALANCE_INCANDESCENT)==true){
-                            mCurrentWhiteBalace=Camera.Parameters.WHITE_BALANCE_INCANDESCENT
+                    1 -> {
+                        if (mCamera?.parameters?.supportedWhiteBalance?.contains(Camera.Parameters.WHITE_BALANCE_INCANDESCENT) == true) {
+                            mCurrentWhiteBalace = Camera.Parameters.WHITE_BALANCE_INCANDESCENT
                         }
                     }
-                    2->{
-                        if (mCamera?.parameters?.supportedWhiteBalance?.contains(Camera.Parameters.WHITE_BALANCE_FLUORESCENT)==true){
-                            mCurrentWhiteBalace=Camera.Parameters.WHITE_BALANCE_FLUORESCENT
+                    2 -> {
+                        if (mCamera?.parameters?.supportedWhiteBalance?.contains(Camera.Parameters.WHITE_BALANCE_FLUORESCENT) == true) {
+                            mCurrentWhiteBalace = Camera.Parameters.WHITE_BALANCE_FLUORESCENT
                         }
                     }
-                    3->{
-                        if (mCamera?.parameters?.supportedWhiteBalance?.contains(Camera.Parameters.WHITE_BALANCE_WARM_FLUORESCENT)==true){
-                            mCurrentWhiteBalace=Camera.Parameters.WHITE_BALANCE_WARM_FLUORESCENT
+                    3 -> {
+                        if (mCamera?.parameters?.supportedWhiteBalance?.contains(Camera.Parameters.WHITE_BALANCE_WARM_FLUORESCENT) == true) {
+                            mCurrentWhiteBalace = Camera.Parameters.WHITE_BALANCE_WARM_FLUORESCENT
                         }
                     }
-                    4->{
-                        if (mCamera?.parameters?.supportedWhiteBalance?.contains(Camera.Parameters.WHITE_BALANCE_DAYLIGHT)==true){
-                            mCurrentWhiteBalace=Camera.Parameters.WHITE_BALANCE_DAYLIGHT
+                    4 -> {
+                        if (mCamera?.parameters?.supportedWhiteBalance?.contains(Camera.Parameters.WHITE_BALANCE_DAYLIGHT) == true) {
+                            mCurrentWhiteBalace = Camera.Parameters.WHITE_BALANCE_DAYLIGHT
                         }
                     }
-                    5->{
-                        if (mCamera?.parameters?.supportedWhiteBalance?.contains(Camera.Parameters.WHITE_BALANCE_CLOUDY_DAYLIGHT)==true){
-                            mCurrentWhiteBalace=Camera.Parameters.WHITE_BALANCE_CLOUDY_DAYLIGHT
+                    5 -> {
+                        if (mCamera?.parameters?.supportedWhiteBalance?.contains(Camera.Parameters.WHITE_BALANCE_CLOUDY_DAYLIGHT) == true) {
+                            mCurrentWhiteBalace = Camera.Parameters.WHITE_BALANCE_CLOUDY_DAYLIGHT
                         }
                     }
-                    6->{
-                        if (mCamera?.parameters?.supportedWhiteBalance?.contains(Camera.Parameters.WHITE_BALANCE_TWILIGHT)==true){
-                            mCurrentWhiteBalace=Camera.Parameters.WHITE_BALANCE_TWILIGHT
+                    6 -> {
+                        if (mCamera?.parameters?.supportedWhiteBalance?.contains(Camera.Parameters.WHITE_BALANCE_TWILIGHT) == true) {
+                            mCurrentWhiteBalace = Camera.Parameters.WHITE_BALANCE_TWILIGHT
                         }
                     }
-                    7->{
-                        if (mCamera?.parameters?.supportedWhiteBalance?.contains(Camera.Parameters.WHITE_BALANCE_SHADE)==true){
-                            mCurrentWhiteBalace=Camera.Parameters.WHITE_BALANCE_SHADE
+                    7 -> {
+                        if (mCamera?.parameters?.supportedWhiteBalance?.contains(Camera.Parameters.WHITE_BALANCE_SHADE) == true) {
+                            mCurrentWhiteBalace = Camera.Parameters.WHITE_BALANCE_SHADE
                         }
                     }
                 }
@@ -162,41 +171,54 @@ class TakePictureActivity : AppCompatActivity() {
             }
 
 
-
         }
 
     }
 
     private fun takePicture() {
 
-
-        mCamera?.takePicture(object :Camera.ShutterCallback{
+        val activity=this
+        mCamera?.takePicture(object : Camera.ShutterCallback {
             override fun onShutter() {
 
             }
 
-        },object :Camera.PictureCallback{
+        }, object : Camera.PictureCallback {
             override fun onPictureTaken(data: ByteArray?, camera: Camera?) {
 
             }
 
-        },object:Camera.PictureCallback{
+        }, object : Camera.PictureCallback {
             override fun onPictureTaken(data: ByteArray?, camera: Camera?) {
-                val bitmap=BitmapFactory.decodeByteArray(data,0,data?.size!!)
-                var filePath:String?=null
-                if (TextUtils.isEmpty(mPath)){
-                    filePath=defaultFile().absolutePath
-                }else{
-                    filePath=createFile(mPath)
+                var bitmap = BitmapFactory.decodeByteArray(data, 0, data?.size!!)
+                val info = android.hardware.Camera.CameraInfo()
+                android.hardware.Camera.getCameraInfo(currentCameraType, info)
+//                bitmap=rotateBitmap(bitmap,info.orientation)
+                var filePath: String? = null
+                if (TextUtils.isEmpty(mPath)) {
+                    filePath = defaultFile().absolutePath
+                } else {
+                    filePath = createFile(mPath)
                 }
-                val path=FileUtils.saveBitmap2File(bitmap,filePath)
+                val path = FileUtils.saveBitmap2File(bitmap, filePath)
                 val intent = Intent()
                 intent.putExtra("data", path)
-                setResult(Activity.RESULT_OK,intent)
+                setResult(Activity.RESULT_OK, intent)
                 finish()
             }
 
         })
+    }
+
+    private fun rotateBitmap(bitmap: Bitmap, degrees: Int): Bitmap {
+        if (degrees == 0) {
+            return bitmap
+        }
+        val matrix = Matrix()
+        matrix.setRotate(degrees.toFloat(), bitmap.getWidth().toFloat() / 2f, bitmap.getHeight().toFloat() / 2f)
+        val bmp = Bitmap.createBitmap (bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true)
+        bitmap.recycle()
+        return bmp
     }
 
 
@@ -238,7 +260,7 @@ class TakePictureActivity : AppCompatActivity() {
         if (parameters?.getSupportedFocusModes()?.contains(
                 Camera.Parameters
                     .FOCUS_MODE_CONTINUOUS_PICTURE
-            )!=null
+            ) != null
         ) {
             //自动持续对焦
             parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)
@@ -252,7 +274,7 @@ class TakePictureActivity : AppCompatActivity() {
 
 
         //设置白平衡
-        parameters?.whiteBalance=mCurrentWhiteBalace
+        parameters?.whiteBalance = mCurrentWhiteBalace
 //        parameters?.colorEffect=Camera.Parameters.EFFECT_NEGATIVE
 
         //在设置图片和预览的大小时要注意当前摄像头支持的大小，不同手机支持的大小不同，如果你的SurfaceView不是全屏，有可能被拉伸。
@@ -266,8 +288,8 @@ class TakePictureActivity : AppCompatActivity() {
         val picSize = getPictureSize(picSizes, width, height)
         parameters?.setPictureSize(picSize!!.width, picSize.height)
 //        parameters?.setRotation(90)
-        onOrientationChanged(mCamera,currentCameraType,90)
-        Log.d(TAG,parameters?.flatten())
+        onOrientationChanged(mCamera, currentCameraType, 90)
+        Log.d(TAG, parameters?.flatten())
         mCamera?.setParameters(parameters)
         //4. Call setDisplayOrientation(int) to ensure correct orientation of preview.
         //你可能会遇到画面方向和手机的方向不一致的问题，竖向手机的时候，但是画面是横的，这是由于摄像头默认捕获的画面横向的
@@ -317,7 +339,12 @@ class TakePictureActivity : AppCompatActivity() {
                     initCamera()
                 }
 
-                override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+                override fun surfaceChanged(
+                    holder: SurfaceHolder,
+                    format: Int,
+                    width: Int,
+                    height: Int
+                ) {
                     Log.e(TAG, "surfaceChanged$holder$this")
                 }
 
@@ -329,7 +356,7 @@ class TakePictureActivity : AppCompatActivity() {
         }
     }
 
-    fun onOrientationChanged(camera: Camera?,cameraId: Int,orientation: Int) {
+    fun onOrientationChanged(camera: Camera?, cameraId: Int, orientation: Int) {
         var orientation = orientation
         if (orientation == ORIENTATION_UNKNOWN) return
         val info = android.hardware.Camera.CameraInfo()
@@ -346,8 +373,12 @@ class TakePictureActivity : AppCompatActivity() {
 
 
     //设置相机的方向
-    fun setCameraDisplayOrientation(activity: Activity, cameraId: Int, camera: android.hardware.Camera?): Int {
-        if (camera==null){
+    fun setCameraDisplayOrientation(
+        activity: Activity,
+        cameraId: Int,
+        camera: android.hardware.Camera?
+    ): Int {
+        if (camera == null) {
             0
         }
         val info = android.hardware.Camera.CameraInfo()
@@ -377,7 +408,7 @@ class TakePictureActivity : AppCompatActivity() {
     private fun setPreviewLight() {
         mCamera?.setPreviewCallback(object : Camera.PreviewCallback {
             override fun onPreviewFrame(data: ByteArray, camera: Camera) {
-                Log.d("test","sssss");
+                Log.d("test", "sssss");
             }
         })
     }
@@ -386,7 +417,11 @@ class TakePictureActivity : AppCompatActivity() {
     /**
      * 获得最合是的宽高size
      */
-    private fun getPictureSize(picSizes: List<Camera.Size>?, width: Int, height: Int): Camera.Size? {
+    private fun getPictureSize(
+        picSizes: List<Camera.Size>?,
+        width: Int,
+        height: Int
+    ): Camera.Size? {
         // 对于存储最适合的最小
         var betterSize: Camera.Size? = null
         // 差值
