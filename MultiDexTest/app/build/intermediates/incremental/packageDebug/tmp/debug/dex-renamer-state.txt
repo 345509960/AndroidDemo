@@ -1,0 +1,7 @@
+#Sat Oct 12 11:30:58 CST 2019
+base.0=E\:\\Android\\MultiDexTest\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out
+path.1=classes2.dex
+renamed.1=classes2.dex
+path.0=classes.dex
+renamed.0=classes.dex
+base.1=E\:\\Android\\MultiDexTest\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out
