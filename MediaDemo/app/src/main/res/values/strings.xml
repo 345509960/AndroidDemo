@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">MediaDemo</string>
+
+    <string-array name="white_balance">
+        <item>自动</item>
+        <item>白炽灯</item>
+        <item>荧光灯</item>
+        <item>温暖的荧光灯</item>
+        <item>充满阳光的天气</item>
+        <item>阴天、日光</item>
+        <item>暮光</item>
+        <item>阴冷色</item>
+    </string-array>
+</resources>

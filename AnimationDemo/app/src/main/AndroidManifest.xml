@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.lyc.indonesia.animationdemo">
+
+    <application
+            android:allowBackup="true"
+            android:appComponentFactory=""
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme"
+            tools:replace="android:appComponentFactory">
+        <activity android:name=".layoutanimation.AutoAnimationLayoutUpdateActivity">
+        </activity>
+        <activity android:name=".layoutanimation.LayoutAnimationActivity">
+        </activity>
+        <activity android:name=".zoomanimation.ZoomImageViewActivity">
+        </activity>
+        <activity android:name=".moveanimation.CustomizePathActivity">
+        </activity>
+        <activity android:name=".moveanimation.CurvedMotionActivity">
+        </activity>
+        <activity android:name=".moveanimation.LineTranslateAnimationActivity">
+        </activity>
+        <activity android:name=".moveanimation.MoveAnimationActivity">
+        </activity>
+        <activity android:name=".showorhide.CardFlipActivity">
+        </activity>
+        <activity android:name=".showorhide.CircleRevealActivity">
+        </activity>
+        <activity
+                android:name=".showorhide.CrossfadeActivity"
+                android:label="@string/title_activity_crossfade"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".showorhide.ShowOrHideDemoActivity"
+                android:label="@string/title_activity_show_or_hide_demo"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".basemotionanimtion.FlingAnimationActivity">
+        </activity>
+        <activity android:name=".basemotionanimtion.SimpleTextActivity">
+        </activity>
+        <activity android:name=".basemotionanimtion.StringTextSpringActivity">
+        </activity>
+        <activity android:name=".basemotionanimtion.BaseMotionActivity">
+        </activity>
+        <activity android:name=".frameanimation.FrameAnimationActivity">
+        </activity>
+        <activity android:name=".viewanimation.ViewAnimationActivity">
+        </activity>
+        <activity android:name=".basemotionanimtion.SpringActivity">
+        </activity>
+        <activity android:name=".PropertyAnimationJavaActivity">
+        </activity>
+        <activity android:name=".viewanimation.ViewXmlAnimationActivity">
+        </activity>
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".viewanimation.ViewJavaAnimationActivity"/>
+        <activity android:name=".frameanimation.FrameAnimationXmlActivity"/>
+        <activity android:name=".frameanimation.FrameAnimationJavaActivity">
+        </activity>
+        <activity android:name=".basemotionanimtion.CustomSpringForceActivity"/>
+    </application>
+
+</manifest>
