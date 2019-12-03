@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.example.backgroundworkdemo.service.IntentServiceActivity
+import com.example.backgroundworkdemo.service.JobSchedulerActivity
 import com.example.backgroundworkdemo.service.MessengerActivity
 import com.example.backgroundworkdemo.service.ServiceActivity
+import com.example.backgroundworkdemo.workmanager.WorkManageActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +31,18 @@ class MainActivity : AppCompatActivity() {
 
     fun goIntentService(view: View) {
         Intent(this@MainActivity,IntentServiceActivity::class.java).apply {
+            startActivity(this)
+        }
+    }
+
+    fun goJobScheduler(view: View) {
+        Intent(this@MainActivity,JobSchedulerActivity::class.java).apply {
+            startActivity(this)
+        }
+    }
+
+    fun goWorkManage(view: View) {
+        Intent(this@MainActivity,WorkManageActivity::class.java).apply {
             startActivity(this)
         }
     }
