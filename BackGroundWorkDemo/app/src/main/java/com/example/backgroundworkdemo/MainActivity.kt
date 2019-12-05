@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.example.backgroundworkdemo.broadcast.BroadcastActivity
 import com.example.backgroundworkdemo.service.IntentServiceActivity
 import com.example.backgroundworkdemo.service.JobSchedulerActivity
 import com.example.backgroundworkdemo.service.MessengerActivity
@@ -43,6 +44,12 @@ class MainActivity : AppCompatActivity() {
 
     fun goWorkManage(view: View) {
         Intent(this@MainActivity,WorkManageActivity::class.java).apply {
+            startActivity(this)
+        }
+    }
+
+    fun goBroad(view: View) {
+        Intent(this@MainActivity,BroadcastActivity::class.java).apply {
             startActivity(this)
         }
     }
